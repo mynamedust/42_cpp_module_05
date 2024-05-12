@@ -2,21 +2,21 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-typedef std::string string;
 
 class Bureaucrat {
-	const string _name;
+	const std::string _name;
 	int _grade;
 public:
 	Bureaucrat();
-	Bureaucrat(const string &name, int grade);
+	Bureaucrat(const std::string& name, int grade);
 	~Bureaucrat();
 	Bureaucrat(const Bureaucrat &other);
 	Bureaucrat &operator=(const Bureaucrat &other);
-	const char *operator<<( ,const Bureaucrat &buro);
 
-	string getName() const;
+	std::string getName() const;
 	int getGrade() const;
+	void gradeUp();
+	void gradeDown();
 
 	class GradeTooHighException : public std::exception{
 		const char *what() const throw();
@@ -29,6 +29,5 @@ public:
 };
 
 std::ostream& operator<<(std::ostream &os, const Bureaucrat& bur);
-
 
 #endif
