@@ -1,19 +1,21 @@
 #include "Form.hpp"
 
-Form::Form() : _name("untitled_form"), _isSigned(false), _signGrage(150),  _executeGrade(150) {
+Form::Form() : _name("untitled_form"), _isSigned(false), _signGrade(150), _executeGrade(150) {
 	std::cout << "Bureaucrat default constructor called." << std::endl;
 }
 
 Form::Form(const std::string& name, const int signGrade, const int executeGrade)
-: _name(name), _isSigned(false) , _signGrage(signGrade), _executeGrade(executeGrade) {
+: _name(name), _isSigned(false) , _signGrade(signGrade), _executeGrade(executeGrade) {
 	std::cout << "Form param constructor called." << std::endl;
 	checkGrade(signGrade, 150);
 	checkGrade(executeGrade, 150);
 }
 
 Form::Form(const Form& other)
-: _name(other._name), _isSigned(other._isSigned), _signGrage(other._signGrage),  _executeGrade(other._executeGrade) {
+: _name(other._name + "_copy"), _isSigned(other._isSigned), _signGrade(other._signGrade), _executeGrade(other._executeGrade) {
 	std::cout << "Form copy constructor called." << std::endl;
+	checkGrade(this->_signGrade, 150);
+	checkGrade(this->_executeGrade, 150);
 }
 
 Form::~Form() {
@@ -36,7 +38,7 @@ bool Form::getIsSigned() const{
 }
 
 int Form::getSignGrade() const {
-	return _signGrage;
+	return _signGrade;
 }
 
 int Form::getExecuteGrade() const {
@@ -56,8 +58,8 @@ const char *Form::FormAlreadySigned::what() const throw() {
 }
 
 std::ostream& operator<<(std::ostream &os, const Form& form) {
-	os << "From: " << form.getName() << ",sign grade: " << form.getSignGrade() << ",execute grade: " << form.getExecuteGrade()
-	<< ",signed status: " << form.getIsSigned();
+	os << "---------------------------\n" <<"Form:\n\tname: " << form.getName() << "\n\tsign grade: " << form.getSignGrade() << "\n\texecute grade: " << form.getExecuteGrade() << "\n\tsigned status: "
+	<< form.getIsSigned() << "\n---------------------------" << std::endl;
 	return os;
 }
 

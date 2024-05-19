@@ -7,7 +7,7 @@
 class Form {
 	const std::string _name;
 	bool  _isSigned;
-	const int _signGrage;
+	const int _signGrade;
 	const int _executeGrade;
 public:
 	Form();
@@ -35,9 +35,8 @@ public:
 	};
 };
 
-std::ostream& operator<<(std::ostream &os, Form& form);
-
-
-#endif
+std::ostream& operator<<(std::ostream &os, const Form& form);
 
 bool checkGrade(const int grade, int min);
+
+#endif
