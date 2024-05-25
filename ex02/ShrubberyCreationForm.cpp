@@ -2,25 +2,29 @@
 #include <sstream>
 #include <iomanip>
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) , _target("no_target") {
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", "zero_target", 145, 137){
 	std::cout << "ShrubberyCreationForm constructor called. New form name: " << this->getName() << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm("ShrubberyCreationForm", 145, 137), _target(target) {
-	std::cout << "ShrubberyCreationForm param constructor called. New form name: " << this->getName() << std::endl;
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) : AForm("ShrubberyCreationForm", target,145, 137) {
+	std::cout << "ShrubberyCreationForm param constructor called." << std::endl;
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) :  AForm(other) {
+	std::cout << "ShrubberyCreationForm copy constructor called." << std::endl;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
-	std::cout << "ShrubberyCreationForm " << this->getName() << " destructor called." << std::endl;
+	std::cout << "ShrubberyCreationForm " << " destructor called." << std::endl;
 }
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other) {
+	(void)other;
 	return *this;
 }
 
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
-	if (!this->getIsSigned())
-		throw FormNotSigned();
+	checkExecute(executor);
 
 	std::ofstream outfile (this->getName());
 	outfile << createNewASCIITree();

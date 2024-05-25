@@ -1,18 +1,19 @@
 #include "AForm.hpp"
+#include "Bureaucrat.hpp"
 
-AForm::AForm() : _name("untitled_form"), _isSigned(false), _signGrade(150), _executeGrade(150) {
+AForm::AForm() : _name("untitled_form"), _target("zero_target"), _isSigned(false), _signGrade(150), _executeGrade(150) {
 	std::cout << "Bureaucrat default constructor called." << std::endl;
 }
 
-AForm::AForm(const std::string& name, const int signGrade, const int executeGrade)
-: _name(name), _isSigned(false) , _signGrade(signGrade), _executeGrade(executeGrade) {
+AForm::AForm(const std::string& name, const std::string& target, const int signGrade, const int executeGrade)
+: _name(name), _target(target), _isSigned(false) , _signGrade(signGrade), _executeGrade(executeGrade) {
 	std::cout << "AForm param constructor called." << std::endl;
 	checkGrade(signGrade, 150);
 	checkGrade(executeGrade, 150);
 }
 
 AForm::AForm(const AForm& other)
-: _name(other._name + "_copy"), _isSigned(other._isSigned), _signGrade(other._signGrade), _executeGrade(other._executeGrade) {
+: _name(other._name + "_copy"), _target(other._target), _isSigned(other._isSigned), _signGrade(other._signGrade), _executeGrade(other._executeGrade) {
 	std::cout << "AForm copy constructor called." << std::endl;
 	checkGrade(this->_signGrade, 150);
 	checkGrade(this->_executeGrade, 150);
@@ -31,6 +32,10 @@ AForm &AForm::operator=(const AForm& other) {
 
 std::string AForm::getName() const {
 		return _name;
+}
+
+std::string AForm::getTarget() const {
+	return _target;
 }
 
 bool AForm::getIsSigned() const{
@@ -67,12 +72,11 @@ std::ostream& operator<<(std::ostream &os, const AForm& form) {
 	return os;
 }
 
-bool checkGrade(const int grade, int min) {
+void AForm::checkGrade(const int grade, int min) const{
 	if (grade > min)
 		throw AForm::GradeTooLowException();
 	if (grade < 1)
 		throw AForm::GradeTooHighException();
-	return  false;
 }
 
 void AForm::beSigned(Bureaucrat bur) {
@@ -80,4 +84,11 @@ void AForm::beSigned(Bureaucrat bur) {
 	if (this->_isSigned)
 		throw AForm::FormAlreadySigned();
 	this->_isSigned = true;
+}
+
+void AForm::checkExecute(const Bureaucrat &executor) const {
+	if (!this->getIsSigned())
+		throw FormNotSigned();
+	if (this->getExecuteGrade() < executor.getGrade())
+		throw GradeTooLowException();
 }
