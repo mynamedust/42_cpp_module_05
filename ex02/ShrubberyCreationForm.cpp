@@ -26,7 +26,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 	checkExecute(executor);
 
-	std::ofstream outfile (this->getName());
+	std::ofstream outfile (this->getTarget() + "_shrubbery");
 	outfile << createNewASCIITree();
 	outfile.close();
 }

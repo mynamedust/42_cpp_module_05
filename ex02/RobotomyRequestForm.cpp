@@ -35,7 +35,7 @@ void RobotomyRequestForm::execute(const Bureaucrat &executor) const {
 
 	std::cout << "*woup woup*" << std::endl;
 	sleep(1);
-	std::cout << "*pr  pr  pr  pr" << std::endl;
+	std::cout << "*pr  pr  pr  pr*" << std::endl;
 	sleep(1);
 
 	if (std::rand() % 2)

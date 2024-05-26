@@ -20,6 +20,7 @@ $(OBJS_DIR)/%.o: ./%.cpp
 
 clean:
 	rm -rf $(OBJS_DIR)
+	rm *_shrubbery
 
 fclean: clean
 	rm -f $(NAME)
