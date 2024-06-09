@@ -6,6 +6,7 @@ OBJS		= $(SRCS:./%.cpp=$(OBJS_DIR)/%.o)
 CC			= c++
 CFLAGS		= -Wall -Werror -Wextra -std=c++98 -I ./
 MAKEFILE	= ./Makefile
+FILE		= *_shrubbery
 
 all: $(NAME)
 
@@ -20,6 +21,7 @@ $(OBJS_DIR)/%.o: ./%.cpp
 
 clean:
 	rm -rf $(OBJS_DIR)
+	@if [ -f $(FILE) ]; then rm $(FILE); fi
 
 fclean: clean
 	rm -f $(NAME)
